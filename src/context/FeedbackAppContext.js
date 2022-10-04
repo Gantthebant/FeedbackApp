@@ -15,21 +15,18 @@ export const FeedbackProvider = ({children}) => {
     const fetchFeedbackData = async() => {
         const response = await fetch('http://127.0.0.1:5000/feedback');
         const data = await response.json();
-        setFeedbackData(data)
-    }
+        setFeedbackData(data);
+    };
 
     const deleteReview = async(id) => {
         await fetch(`http://127.0.0.1:5000/feedback/${id}`, {
             method: 'DELETE',
         });
 
-        // not effician way of doing it
-        // fetchFeedbackData();
-
         setFeedbackData(feedbackData.filter((item) => {
             return item.id !== id;
         }));
-    }
+    };
 
     return <FeedbackAppContext.Provider value={{
         feedbackData,

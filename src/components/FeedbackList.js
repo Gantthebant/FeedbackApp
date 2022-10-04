@@ -10,7 +10,7 @@ function FeedbackList() {
     return (
         <div>
             {feedbackData.map((feedbackItem) => {
-                return <FeedbackReview key={feedbackItem.id} feedbackItem={feedbackItem}/> ;
+                return <FeedbackReview key={feedbackItem.id} feedbackItem={feedbackItem}/>;
             })}
         </div>
     )
