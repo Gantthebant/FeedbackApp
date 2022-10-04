@@ -1,15 +1,21 @@
+import {FeedbackProvider} from './context/FeedbackAppContext';
+
 import Header from './components/Header';
+import FeedbackStats from './components/FeedbackStats';
+import FeedbackList from './components/FeedbackList';
 
 function App() {
 return (
-  <div>
-    <Header />
-    <div className='container'>
-      {/* feedbackform */}
-      {/* feedback stats */}
-      {/* feedback list */}
+  <FeedbackProvider>
+    <div>
+      <Header />
+      <div className='container'>
+        {/* feedbackform */}
+        <FeedbackStats />
+        <FeedbackList />
+      </div>
     </div>
-  </div>
+  </FeedbackProvider>
 );
 }
 
