@@ -1,14 +1,17 @@
 import {useContext} from 'react';
 import FeedbackAppContext from '../context/FeedbackAppContext';
 
+import FeedbackReview from './FeedbackReview';
+
 function FeedbackList() {
 
     const {feedbackData} = useContext(FeedbackAppContext);
-    console.log(feedbackData);
 
     return (
         <div>
-            List
+            {feedbackData.map((feedbackItem) => {
+                return <FeedbackReview key={feedbackItem.id} feedbackItem={feedbackItem}/> ;
+            })}
         </div>
     )
 
