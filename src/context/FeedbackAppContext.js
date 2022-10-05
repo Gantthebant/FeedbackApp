@@ -47,7 +47,6 @@ export const FeedbackProvider = ({children}) => {
         feedbackData,
         deleteReview,
         addReview,
-
     }}>
         {children}
     </FeedbackAppContext.Provider>
