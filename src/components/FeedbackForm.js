@@ -1,17 +1,37 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import FeedbackAppContext from '../context/FeedbackAppContext';
 
 import Rating from './Rating';
+import FormButton from './FormButton';
 
 function FeedbackForm() {
-    const [select, setSelect] = useState();
+
+    const {addReview} = useContext(FeedbackAppContext);
+
+    const [rating, setRating] = useState(10);
     const [text, setText] = useState();
+    const [btnDisabled, setBtnDisabled] = useState(true);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(text , select);
+
+        const newReview = {
+            rating,
+            text,
+        };
+
+        addReview(newReview);
+        setText('');
     }
 
-    const handleText = (e) => {
+    const handleButton = (e) => {
+        if(e.target.value.trim() < 5 && rating === undefined) {
+            setBtnDisabled(true);
+        }
+
+        if(e.target.value.length >= 5 && rating !== undefined) {
+            setBtnDisabled(false);
+        }
         setText(e.target.value);
     }
 
@@ -19,10 +39,12 @@ function FeedbackForm() {
         <div className="card">
             <form onSubmit={handleSubmit}>
                 <h2> Leave a review for us!</h2>
-                    <Rating select={(rating) => {setSelect(rating)}}/>
-                    <div>
-                        <input type='text' placeholder='What did you think about us today?' onChange={handleText}></input>
-                        <button>Submit</button>
+                    <Rating select={(rating) => {setRating(rating)}}/>
+                    <div className="input-group">
+                        <input type='text' placeholder='Write more than 4 letters' onChange={handleButton}></input>
+                        <button type='submit' disabled={btnDisabled} className={`btn btn-primary`}>
+                            Submit
+                        </button>
                     </div>
             </form>
             
