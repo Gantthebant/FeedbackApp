@@ -1,6 +1,7 @@
 import {FeedbackProvider} from './context/FeedbackAppContext';
 
 import Header from './components/Header';
+import FeedbackForm from './components/FeedbackForm';
 import FeedbackStats from './components/FeedbackStats';
 import FeedbackList from './components/FeedbackList';
 
@@ -10,7 +11,7 @@ return (
     <div>
       <Header />
       <div className='container'>
-        {/* feedbackform */}
+        <FeedbackForm />
         <FeedbackStats />
         <FeedbackList />
       </div>
