@@ -9,6 +9,7 @@ export const FeedbackProvider = ({children}) => {
         item: {},
         edit: false,
     });
+    const [error, setError] = useState();
 
     useEffect(() => {
 
@@ -17,9 +18,17 @@ export const FeedbackProvider = ({children}) => {
     }, []);
 
     const fetchFeedbackData = async() => {
-        const response = await fetch('http://127.0.0.1:5000/feedback');
-        const data = await response.json();
-        setFeedbackData(data);
+        try {
+            const response = await fetch('http://127.0.0.1:5000/feedback');
+            if(!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const data = await response.json();
+            setFeedbackData(data);
+        } catch (error) {
+            setError('failed to fetch');
+        }
+        
     };
 
     const deleteReview = async(id) => {
@@ -34,17 +43,27 @@ export const FeedbackProvider = ({children}) => {
 
     const addReview = async(review) => {
 
-        const response = await fetch('http://127.0.0.1:5000/feedback/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(review)
-        })
+        try{
+            const response = await fetch('http://127.0.0.1:5000/feedback/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(review)
+            });
 
-        const data = await response.json();
+            if(!response.ok) {
+                throw new Error('failed to add new reviw');
+            }
 
-        setFeedbackData([data, ...feedbackData]);
+            const data = await response.json();
+
+            setFeedbackData([data, ...feedbackData]);
+
+        } catch(error) {
+            setError(error);
+        }
+        
     }
 
     const editFeedback = (item) => {
@@ -55,26 +74,37 @@ export const FeedbackProvider = ({children}) => {
     };
 
     const updateFeedback = async (id, updItem) => {
+        try {
+
+            const response = await fetch(`http://127.0.0.1:5000/feedback/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updItem)
+            });
+
+            if(!response.ok) {
+                throw new Error('Failed to update');
+            }
+
+            const data = await response.json();
+
+
+            setFeedbackData(feedbackData.map((item) => {
+                return item.id === id ? {...item, ...data} : item;
+            }));
+
+        } catch (error) {
+            setError(error);
+        };
         
-        const response = await fetch(`http://127.0.0.1:5000/feedback/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updItem)
-        });
-
-        const data = await response.json();
-
-
-        setFeedbackData(feedbackData.map((item) => {
-            return item.id === id ? {...item, ...data} : item;
-        }));
     }
 
     return <FeedbackAppContext.Provider value={{
         feedbackData,
         editReview,
+        error,
         deleteReview,
         addReview,
         setEditReview,

@@ -6,6 +6,13 @@ import FeedbackReview from './FeedbackReview';
 function FeedbackList() {
 
     const {feedbackData} = useContext(FeedbackAppContext);
+    const {error} = useContext(FeedbackAppContext);
+
+    if(error) {
+        return(
+            <p>{error}</p>
+        )
+    }
 
     if (feedbackData.length === 0) {
         return (
