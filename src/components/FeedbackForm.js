@@ -22,7 +22,7 @@ function FeedbackForm() {
             setText(editReview.item.text);
         }
 
-    }, [updateFeedback])
+    }, [updateFeedback]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,18 +34,14 @@ function FeedbackForm() {
             };
 
             if (editReview.edit === true) {
-                console.log('one')
                 updateFeedback(editReview.item.id, newReview);
             } else {
-                console.log('two')
                 addReview(newReview);
             }
             
             setEditReview({
                 edit: false
             });
-
-            console.log(editReview);
 
             setText('');
         }
@@ -59,6 +55,7 @@ function FeedbackForm() {
         if(e.target.value.length >= 5) {
             setBtnDisabled(false);
         }
+        
         setText(e.target.value);
     }
 
