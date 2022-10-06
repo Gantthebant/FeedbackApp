@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #202142;
+  background-color: #203c42;
   color: #fff;
   line-height: 1.6;
 }
@@ -35,15 +35,10 @@ header {
 .card {
   background-color: #fff;
   color: #333;
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 40px 50px;
   margin: 20px 0;
   position: relative;
-}
-
-.card.reverse {
-  background-color: rgba(0, 0, 0, 0.4);
-  color: #fff;
 }
 
 .card h2 {
@@ -87,7 +82,7 @@ header {
 
 .rating li:hover,
 .num-display {
-  background: #ff6a95;
+  background: #bb1041;
   color: #fff;
 }
 
@@ -96,7 +91,7 @@ header {
 }
 
 [type='radio']:checked ~ label {
-  background: #ff6a95;
+  background: #bb1041;
   color: #fff;
 }
 

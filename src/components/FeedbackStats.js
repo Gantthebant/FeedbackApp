@@ -11,7 +11,7 @@ function FeedbackStats() {
 
     return(
         <div className="feedback-stats">
-            <h4>There are {feedbackData.length}</h4>
+            <h4>There are {feedbackData.length} reviews</h4>
             <h4>Average is {avgScore.toFixed(2)}</h4>
         </div>
     )
